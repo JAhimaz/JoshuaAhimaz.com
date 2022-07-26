@@ -1,22 +1,26 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import OptionsSection from './Options'
+import { About, Contact, Experience, Portfolio } from './Sections'
 
 const MainSection = ({ className } : { className ?: string }) => {
 
+  const [selectedSection, setSelectedSection] = useState("about")
+
+  const handleSectionChange = (section: string) => {
+    setSelectedSection(section)
+  }
+
   return (
     <div className={className}>
-      <aside>
-        <div>
-          <p className="aside-name"><span>JOSHUA</span> DAVESTON AHIMAZ</p>
-          <p className="aside-company">Talisman / Serverminer</p>
-        </div>
-        <div>
-          <p className="technicals">web3 enthusiast_</p>
-          <p className="technicals">software engineer_</p>
-          <p className="technicals">game developer_</p>
-        </div>
-      </aside>
-      <OptionsSection />
+      {
+      selectedSection === "about" ? <About /> :
+      selectedSection === "experience" ? <Experience /> :
+      selectedSection === "portfolio" ? <Portfolio /> :
+      selectedSection === "contact" ? <Contact /> :
+      <About />
+      }
+      <OptionsSection handleSectionChange={(value) => handleSectionChange(value)} />
     </div>
   )
 }
@@ -25,32 +29,12 @@ const StyledMainSection = styled(MainSection)`
   display: flex;
   flex-direction: row;
   height: 90vh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 
-  p {
-    margin: 0;
+  @media only screen and (max-width: 600px) {
+    display: block;
   }
-
-  aside {
-    flex-grow: 1;
-    padding: 1.5em 0 3em 4em;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .aside-name {
-    font-size: 48px;
-  }
-
-  .aside-company {
-    font-size: 24px;
-  }
-
-  .technicals {
-    font-size: 32px;
-  }
-
 `
 
 export default StyledMainSection

@@ -1,19 +1,26 @@
 import styled from 'styled-components'
 
-const OptionsSection = ({ className } : { className ?: string }) => {
+type OptionsProps = {
+  className ?: string,
+  handleSectionChange ?: (value: string) => void
+}
+
+const OptionsSection = ({ className, handleSectionChange } : OptionsProps) => {
+
   return (
     <section className={className}>
       <ul className="options-list">
-        <li className="option"><span className='hover-arrow'>_</span>ABOUT</li>
-        <li className="option"><span className='hover-arrow'>_</span>EXPERIENCE</li>
-        <li className="option"><span className='hover-arrow'>_</span>PORTFOLIO</li>
-        <li className="option"><span className='hover-arrow'>_</span>CONTACT</li>
+        <li className="option" onClick={() => handleSectionChange("about")}><span className='hover-arrow'>_</span>ABOUT</li>
+        <li className="option" onClick={() => handleSectionChange("experience")}><span className='hover-arrow'>_</span>EXPERIENCE</li>
+        <li className="option" onClick={() => handleSectionChange("portfolio")}><span className='hover-arrow'>_</span>PORTFOLIO</li>
+        <li className="option" onClick={() => handleSectionChange("contact")}><span className='hover-arrow'>_</span>CONTACT</li>
       </ul>
     </section>
   )
 }
 
 const StyledOptions = styled(OptionsSection)`
+
 
   .hover-arrow {
     opacity: 0;
@@ -30,7 +37,8 @@ const StyledOptions = styled(OptionsSection)`
   }
 
   .option:hover {
-    font-size: 180px;
+    transform-origin: center right;
+    transform: scale(1.15);
     -webkit-text-fill-color: white;
     -webkit-text-stroke-color: transparent;
     cursor: pointer;
@@ -39,7 +47,6 @@ const StyledOptions = styled(OptionsSection)`
       opacity: 100;
     }
   }
-
 
   li {
     display: block;
